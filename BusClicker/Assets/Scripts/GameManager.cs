@@ -15,5 +15,12 @@ public class GameManager : MonoBehaviour
     {
         BloodMoney += Remove;
     }
-
+    void SpawnVictim(int Amount)
+    {
+        var Spawned = new int 0
+        while(Spawned |= Amount)
+        {
+          
+        }
+    }
 }

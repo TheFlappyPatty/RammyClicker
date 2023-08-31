@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float BloodMoney;
+    public int Prestige;
+
+    void AddValue(int Add, int Multiplier)
     {
-        
+        BloodMoney += Add * (1 + (0.01f * Multiplier));
+    }
+    void RemoveValue(int Remove)
+    {
+        BloodMoney += Remove;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

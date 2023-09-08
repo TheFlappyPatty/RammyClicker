@@ -31,17 +31,22 @@ public class GameManager : MonoBehaviour
 
     public GameObject level;
     [Header("Victim spawning")]
-    public int SpawnWaittime;
+    public float SpawnWaittime;
     public GameObject Victim;
     public int VictumCount;
     public bool Spawning;
+    public bool BusSpawning = true;
     public void Start()
     {
-        StartCoroutine(BusspawnCounter());
     }
     public void Update()
     {
-        if(Spawning == false)
+        if(BusSpawning == true)
+        {
+        StartCoroutine(BusspawnCounter());
+        }
+
+        if (Spawning == false)
         {
             StartCoroutine(SpawnVictum(VictumCount));
         }
@@ -52,7 +57,7 @@ public class GameManager : MonoBehaviour
 
 
 
-  public static void AddValue(int Add, int Multiplier)
+    public static void AddValue(int Add, int Multiplier)
     {
         BloodMoney += Add * (1 + (0.01f * Multiplier));
     }
@@ -73,7 +78,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI BusAmountButton;
     public int busSpeed = 100;
     public TextMeshProUGUI BusSpeedButton;
-    public int Customerspawnfrequency = 250;
+    public int Customerspawnfrequency = 150;
     public TextMeshProUGUI CustomerfreqButtom;
     public int CustomerspawnAmount = 100;
     public TextMeshProUGUI CustomerAmButton;
@@ -81,34 +86,49 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI CustReward;
     public int PrestigeReward = 50000;
     public TextMeshProUGUI PrestigeRewardButton;
+
     public void BusFrequency(float Bouns)
     {
         if (BusWaitTime >= 0.5f && BloodMoney >= Busfrequency)
         {
             BusWaitTime -= Bouns;
             RemoveValue(Busfrequency);
-            Busfrequency = Busfrequency * 2;
+            var rounded = Busfrequency * 1.5f;
+            Busfrequency = Mathf.RoundToInt(rounded);
             BusFreqButton.text = "Bus Frequency\n Cost:" + Busfrequency;
         }
     }
     public void Buslimit(int Bouns)
     {
-        if (ActiveBuss <= 40 && BloodMoney > BusAmount)
+        if (ActiveBuses <= 5 && BloodMoney >= BusAmount)
         {
-            ActiveBuss += Bouns;
-            RemoveValue(BusAmount);
-            BusAmount = BusAmount * 2;
+                ActiveBuses += Bouns;
+                RemoveValue(BusAmount);
+            var rounded = BusAmount * 1.5f;
+            BusAmount = Mathf.RoundToInt(rounded);
             BusAmountButton.text = "Bus Amount\n Cost:" + BusAmount;
         }
     }
     public void CustomerAmount(int Bouns)
     {
-        if (VictumCount <= 20 && BloodMoney >= CustomerspawnAmount)
+        if (VictumCount <= 60 && BloodMoney >= CustomerspawnAmount)
         {
             VictumCount += Bouns;
             RemoveValue(CustomerspawnAmount);
-            CustomerspawnAmount = CustomerspawnAmount * 2;
+            var rounded = CustomerspawnAmount * 1.5f;
+            CustomerspawnAmount = Mathf.RoundToInt(rounded);
             CustomerAmButton.text = "Victum amount\n Cost:" + CustomerspawnAmount;
+        }
+    }
+    public void VictumFrequency(float Bouns)
+    {
+        if (SpawnWaittime > 0.2f && BloodMoney >= Customerspawnfrequency)
+        {
+            SpawnWaittime -= Bouns;
+            RemoveValue(Customerspawnfrequency);
+            var rounded = Customerspawnfrequency * 1.5f;
+            Customerspawnfrequency = Mathf.RoundToInt(rounded);
+            CustomerfreqButtom.text = "Victum Frequency\n Cost:" + Customerspawnfrequency;
         }
     }
 
@@ -169,13 +189,12 @@ public class GameManager : MonoBehaviour
     [Header("Bus Spawn System")]
     public GameObject[] Busspawns;
     public GameObject Busprefab;
-    public int ActiveBuss;
+    public int ActiveBuses;
     public float BusWaitTime;
     IEnumerator BusspawnCounter()
     {
-        while (true)
-        {
-            if(ActiveBuss == 0)
+        BusSpawning = false;
+            if (ActiveBuses == 0)
             {
 
             }
@@ -183,17 +202,17 @@ public class GameManager : MonoBehaviour
             {
                 var spawned = 0;
                 yield return new WaitForSeconds(BusWaitTime);
-                while (ActiveBuss > spawned)
+                while (ActiveBuses > spawned)
                 {
                     Busspawn();
                     spawned++;
                 }
-                if (ActiveBuss == spawned)
+                if (ActiveBuses == spawned)
                 {
                     spawned = 0;
+                BusSpawning = true;
                 }
             }
-        }
     }
 
     void Busspawn()

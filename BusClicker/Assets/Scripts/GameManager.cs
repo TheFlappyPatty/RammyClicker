@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     public GameObject Victim;
     public int VictumCount;
     public bool Spawning;
-
     public void Start()
     {
         StartCoroutine(BusspawnCounter());
@@ -61,7 +60,75 @@ public class GameManager : MonoBehaviour
     {
         BloodMoney -= Remove;
     }
-  public  void SpawnVictim(int Amount)
+
+
+
+
+    [Header("Upgrades")]
+    public int Busfrequency = 500;
+    public TextMeshProUGUI BusFreqButton;
+    public int Bussize = 2000;
+    public TextMeshProUGUI BussizeButtom;
+    public int BusAmount = 1;
+    public TextMeshProUGUI BusAmountButton;
+    public int busSpeed = 100;
+    public TextMeshProUGUI BusSpeedButton;
+    public int Customerspawnfrequency = 250;
+    public TextMeshProUGUI CustomerfreqButtom;
+    public int CustomerspawnAmount = 100;
+    public TextMeshProUGUI CustomerAmButton;
+    public int CustomerReward = 200;
+    public TextMeshProUGUI CustReward;
+    public int PrestigeReward = 50000;
+    public TextMeshProUGUI PrestigeRewardButton;
+    public void BusFrequency(float Bouns)
+    {
+        if (BusWaitTime >= 0.5f && BloodMoney >= Busfrequency)
+        {
+            BusWaitTime -= Bouns;
+            RemoveValue(Busfrequency);
+            Busfrequency = Busfrequency * 2;
+            BusFreqButton.text = "Bus Frequency\n Cost:" + Busfrequency;
+        }
+    }
+    public void Buslimit(int Bouns)
+    {
+        if (ActiveBuss <= 40 && BloodMoney > BusAmount)
+        {
+            ActiveBuss += Bouns;
+            RemoveValue(BusAmount);
+            BusAmount = BusAmount * 2;
+            BusAmountButton.text = "Bus Amount\n Cost:" + BusAmount;
+        }
+    }
+    public void CustomerAmount(int Bouns)
+    {
+        if (VictumCount <= 20 && BloodMoney >= CustomerspawnAmount)
+        {
+            VictumCount += Bouns;
+            RemoveValue(CustomerspawnAmount);
+            CustomerspawnAmount = CustomerspawnAmount * 2;
+            CustomerAmButton.text = "Victum amount\n Cost:" + CustomerspawnAmount;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public  void SpawnVictim(int Amount)
     {
             Instantiate(Victim, SpawnLocation(level), Quaternion.identity, null);
     }
@@ -103,7 +170,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] Busspawns;
     public GameObject Busprefab;
     public int ActiveBuss;
-    public int BusWaitTime;
+    public float BusWaitTime;
     IEnumerator BusspawnCounter()
     {
         while (true)

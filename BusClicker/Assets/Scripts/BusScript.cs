@@ -5,9 +5,10 @@ using UnityEngine.Events;
 
 public class BusScript : MonoBehaviour
 {
-    public int speed;
-    public int decaytime;
+    public static int speed = 2;
+    public static int decaytime = 4;
     public static int Multiplier = 0;
+    public static int VictimValue = 1;
     void Update()
     {
         gameObject.transform.Translate(Vector3.down * Time.deltaTime * speed);
@@ -25,7 +26,7 @@ public class BusScript : MonoBehaviour
     {
         if (collision.tag == ("Victim"))
         {
-            GameManager.AddValue(1,Multiplier);
+            GameManager.AddValue(VictimValue,Multiplier);
             Destroy(collision.gameObject);
         }
     }

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Text")]
     public TextMeshProUGUI BloodmoneyText;
+    public BusScript BusScript;
 
 
 
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
     public bool BusSpawning = true;
     public void Start()
     {
+        BusSpawning = true;
     }
     public void Update()
     {
@@ -100,7 +102,7 @@ public class GameManager : MonoBehaviour
     }
     public void Buslimit(int Bouns)
     {
-        if (ActiveBuses <= 5 && BloodMoney >= BusAmount)
+        if (ActiveBuses < 8 && BloodMoney >= BusAmount)
         {
                 ActiveBuses += Bouns;
                 RemoveValue(BusAmount);
@@ -117,7 +119,7 @@ public class GameManager : MonoBehaviour
             RemoveValue(CustomerspawnAmount);
             var rounded = CustomerspawnAmount * 1.5f;
             CustomerspawnAmount = Mathf.RoundToInt(rounded);
-            CustomerAmButton.text = "Victum amount\n Cost:" + CustomerspawnAmount;
+            CustomerAmButton.text = "Victum Amount\n Cost:" + CustomerspawnAmount;
         }
     }
     public void VictumFrequency(float Bouns)
@@ -129,6 +131,17 @@ public class GameManager : MonoBehaviour
             var rounded = Customerspawnfrequency * 1.5f;
             Customerspawnfrequency = Mathf.RoundToInt(rounded);
             CustomerfreqButtom.text = "Victum Frequency\n Cost:" + Customerspawnfrequency;
+        }
+    }
+    public void Victimvalues(int Bouns)
+    {
+        if (BusScript.VictimValue < 10 && BloodMoney >= CustomerReward)
+        {
+            BusScript.VictimValue += Bouns;
+            RemoveValue(CustomerReward);
+            var rounded = CustomerReward * 1.5f;
+            CustomerReward = Mathf.RoundToInt(rounded);
+            CustReward.text = "Victum Value\n Cost:" + CustomerReward;
         }
     }
 
@@ -194,7 +207,8 @@ public class GameManager : MonoBehaviour
     IEnumerator BusspawnCounter()
     {
         BusSpawning = false;
-            if (ActiveBuses == 0)
+        Debug.Log("Spawning");
+        if (ActiveBuses == 0)
             {
 
             }
@@ -205,7 +219,8 @@ public class GameManager : MonoBehaviour
                 while (ActiveBuses > spawned)
                 {
                     Busspawn();
-                    spawned++;
+                Debug.Log("Spawned");
+                spawned++;
                 }
                 if (ActiveBuses == spawned)
                 {

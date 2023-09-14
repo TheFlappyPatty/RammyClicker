@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         BusSpawning = true;
+        BusScript.transform.localScale = new Vector3(0.5f, 1, 0.5f);
     }
     public void Update()
     {
@@ -142,6 +143,17 @@ public class GameManager : MonoBehaviour
             var rounded = CustomerReward * 1.5f;
             CustomerReward = Mathf.RoundToInt(rounded);
             CustReward.text = "Victum Value\n Cost:" + CustomerReward;
+        }
+    }
+    public void BusSize(float Bouns)
+    {
+        if (BusScript.transform.localScale.z < 2 && BloodMoney >= Bussize)
+        {
+            BusScript.transform.localScale += new Vector3(Bouns,Bouns,0);
+            RemoveValue(Bussize);
+            var rounded = Bussize * 1.5f;
+            Bussize = Mathf.RoundToInt(rounded);
+            BussizeButtom.text = "Bus Size\n Cost:" + Bussize;
         }
     }
 

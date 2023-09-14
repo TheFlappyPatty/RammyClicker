@@ -2026,6 +2026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prestige: 0
+  PrestigeBonusReward: 0
   BloodmoneyText: {fileID: 1798044173}
   BusScript: {fileID: 9090907921721655634, guid: a6af734ed74b3be49a0ff7f82ff00e9e, type: 3}
   level: {fileID: 705522791}
@@ -3535,7 +3536,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0.1
           m_StringArgument: 
           m_BoolArgument: 0

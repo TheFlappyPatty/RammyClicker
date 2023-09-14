@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
-using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,25 +10,14 @@ public class GameManager : MonoBehaviour
 {
     public static float BloodMoney;
     public int Prestige;
+    public float CurrentPrestigeBonus;
+    public int PrestigeBonusReward;
 
 
 
     [Header("Text")]
     public TextMeshProUGUI BloodmoneyText;
     public BusScript BusScript;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public GameObject level;
@@ -41,6 +31,17 @@ public class GameManager : MonoBehaviour
     {
         BusSpawning = true;
         BusScript.transform.localScale = new Vector3(0.5f, 1, 0.5f);
+        
+    }
+    public IEnumerator ClearArray(GameObject[] Select)
+    {
+        var Current = 0;
+        while (Current <= Select.Length)
+        {
+            Select.SetValue(null,Current);
+            Current++;
+        }
+        return null;
     }
     public void Update()
     {
@@ -58,7 +59,11 @@ public class GameManager : MonoBehaviour
     }
 
 
-
+    public void PrestigeIsAGo()
+    {
+        Prestige++;
+        CurrentPrestigeBonus += 1 + PrestigeBonusReward;
+    }
 
     public static void AddValue(int Add, int Multiplier)
     {
@@ -103,7 +108,7 @@ public class GameManager : MonoBehaviour
     }
     public void Buslimit(int Bouns)
     {
-        if (ActiveBuses < 8 && BloodMoney >= BusAmount)
+        if (ActiveBuses < 12 && BloodMoney >= BusAmount)
         {
                 ActiveBuses += Bouns;
                 RemoveValue(BusAmount);
@@ -114,7 +119,7 @@ public class GameManager : MonoBehaviour
     }
     public void CustomerAmount(int Bouns)
     {
-        if (VictumCount <= 60 && BloodMoney >= CustomerspawnAmount)
+        if (VictumCount <= 100 && BloodMoney >= CustomerspawnAmount)
         {
             VictumCount += Bouns;
             RemoveValue(CustomerspawnAmount);
@@ -125,7 +130,7 @@ public class GameManager : MonoBehaviour
     }
     public void VictumFrequency(float Bouns)
     {
-        if (SpawnWaittime > 0.2f && BloodMoney >= Customerspawnfrequency)
+        if (SpawnWaittime > 1 && BloodMoney >= Customerspawnfrequency)
         {
             SpawnWaittime -= Bouns;
             RemoveValue(Customerspawnfrequency);
@@ -154,6 +159,17 @@ public class GameManager : MonoBehaviour
             var rounded = Bussize * 1.75f;
             Bussize = Mathf.RoundToInt(rounded);
             BussizeButtom.text = "Bus Size\n Cost:" + Bussize;
+        }
+    }
+    public void PrestigeBonus(int Bouns)
+    {
+        if (BloodMoney >= PrestigeReward)
+        {
+            PrestigeBonusReward += Bouns;
+            RemoveValue(PrestigeReward);
+            var rounded = PrestigeReward * 1.5f;
+            PrestigeReward = Mathf.RoundToInt(rounded);
+            PrestigeRewardButton.text = "Bus Size\n Cost:" + PrestigeReward;
         }
     }
 

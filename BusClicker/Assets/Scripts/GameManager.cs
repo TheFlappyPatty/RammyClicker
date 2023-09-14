@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         {
             BusWaitTime -= Bouns;
             RemoveValue(Busfrequency);
-            var rounded = Busfrequency * 1.5f;
+            var rounded = Busfrequency * 1.1f;
             Busfrequency = Mathf.RoundToInt(rounded);
             BusFreqButton.text = "Bus Frequency\n Cost:" + Busfrequency;
         }
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         {
                 ActiveBuses += Bouns;
                 RemoveValue(BusAmount);
-            var rounded = BusAmount * 1.5f;
+            var rounded = BusAmount * 1.2f;
             BusAmount = Mathf.RoundToInt(rounded);
             BusAmountButton.text = "Bus Amount\n Cost:" + BusAmount;
         }
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         {
             VictumCount += Bouns;
             RemoveValue(CustomerspawnAmount);
-            var rounded = CustomerspawnAmount * 1.5f;
+            var rounded = CustomerspawnAmount * 1.2f;
             CustomerspawnAmount = Mathf.RoundToInt(rounded);
             CustomerAmButton.text = "Victum Amount\n Cost:" + CustomerspawnAmount;
         }
@@ -147,11 +147,11 @@ public class GameManager : MonoBehaviour
     }
     public void BusSize(float Bouns)
     {
-        if (BusScript.transform.localScale.z < 2 && BloodMoney >= Bussize)
+        if (BusScript.transform.localScale.z < 1 && BloodMoney >= Bussize)
         {
             BusScript.transform.localScale += new Vector3(Bouns,Bouns,0);
             RemoveValue(Bussize);
-            var rounded = Bussize * 1.5f;
+            var rounded = Bussize * 1.75f;
             Bussize = Mathf.RoundToInt(rounded);
             BussizeButtom.text = "Bus Size\n Cost:" + Bussize;
         }

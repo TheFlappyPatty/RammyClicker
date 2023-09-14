@@ -1952,7 +1952,7 @@ MonoBehaviour:
   - {fileID: 1819489754}
   - {fileID: 1949310832}
   Busprefab: {fileID: 4407306280465550920, guid: a6af734ed74b3be49a0ff7f82ff00e9e, type: 3}
-  ActiveBuses: 1
+  ActiveBuses: 5
   BusWaitTime: 5
 --- !u!4 &622065431
 Transform:

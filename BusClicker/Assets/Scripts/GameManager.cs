@@ -215,16 +215,18 @@ public class GameManager : MonoBehaviour
             else
             {
                 var spawned = 0;
-                yield return new WaitForSeconds(BusWaitTime);
+
                 while (ActiveBuses > spawned)
                 {
                     Busspawn();
-                Debug.Log("Spawned");
+                yield return new WaitForSeconds(0.1f);
                 spawned++;
                 }
                 if (ActiveBuses == spawned)
                 {
                     spawned = 0;
+
+                yield return new WaitForSeconds(BusWaitTime);
                 BusSpawning = true;
                 }
             }

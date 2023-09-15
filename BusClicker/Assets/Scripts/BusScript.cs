@@ -22,7 +22,7 @@ public class BusScript : MonoBehaviour
         speed = 2;
         decaytime = 4;
         VictimValue = 1;
-        gameObject.transform.localScale = new Vector3(0.4f, 0.8f, 0.5f);
+        gameObject.transform.localScale = new Vector3(0.5f, 1, 0.5f);
     //    Destroy(gameObject);
     }
     IEnumerator Decay()

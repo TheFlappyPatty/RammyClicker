@@ -55,14 +55,14 @@ public class GameManager : MonoBehaviour
             StartCoroutine(SpawnVictum(VictumCount));
         }
         BloodmoneyText.text = "BloodMoney = " + BloodMoney;
-        PrestigeText.text = UpgradeCount + "/20";
+        PrestigeText.text = UpgradeCount + "/100";
     }
 
     public int UpgradeCount;
     public TextMeshProUGUI PrestigeText;
     public void PrestigeIsAGo()
     {
-        if(UpgradeCount >= 20)
+        if(UpgradeCount >= 100)
         {
         Prestige++;
         CurrentPrestigeBonus += 1 + PrestigeBonusReward;
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
         CustomerAmButton.text = "Victum Amount\n Cost:" + CustomerspawnAmount;
         CustomerReward = 200;
         CustReward.text = "Victum Value\n Cost:" + CustomerReward;
-        PrestigeReward = 50000;
+        PrestigeReward = 20000;
         PrestigeRewardButton.text = "Prestige Bonuse\n Cost:" + PrestigeReward;
     }
 
@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI CustomerAmButton;
     public int CustomerReward = 200;
     public TextMeshProUGUI CustReward;
-    public int PrestigeReward = 50000;
+    public int PrestigeReward = 20000;
     public TextMeshProUGUI PrestigeRewardButton;
 
     public void BusFrequency(float Bouns)
@@ -205,9 +205,9 @@ public class GameManager : MonoBehaviour
         {
             PrestigeBonusReward += Bouns;
             RemoveValue(PrestigeReward);
-            var rounded = PrestigeReward * 1.5f;
+            var rounded = PrestigeReward * 1.8f;
             PrestigeReward = Mathf.RoundToInt(rounded);
-            PrestigeRewardButton.text = "Prestige Bonuse\n Cost:" + PrestigeReward;
+            PrestigeRewardButton.text = "Prestige Bonus\n Cost:" + PrestigeReward;
             UpgradeCount++;
         }
     }
@@ -289,6 +289,7 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
                 spawned++;
                 }
+            if (spawned > ActiveBuses) spawned = 0;
                 if (ActiveBuses == spawned)
                 {
                     spawned = 0;

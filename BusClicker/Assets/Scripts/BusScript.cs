@@ -8,7 +8,7 @@ public class BusScript : MonoBehaviour
     public static int speed = 2;
     public static int decaytime = 4;
     public static int Multiplier = 0;
-    public static int VictimValue = 1;
+    public static float VictimValue = 1;
     void Update()
     {
         gameObject.transform.Translate(Vector3.down * Time.deltaTime * speed);
@@ -16,6 +16,13 @@ public class BusScript : MonoBehaviour
     public void Awake()
     {
         StartCoroutine(Decay());
+    }
+    public void ResetStats()
+    {
+        speed = 2;
+        decaytime = 4;
+        VictimValue = 1;
+        Destroy(gameObject);
     }
     IEnumerator Decay()
     {
@@ -26,7 +33,7 @@ public class BusScript : MonoBehaviour
     {
         if (collision.tag == ("Victim"))
         {
-            GameManager.AddValue(VictimValue,Multiplier);
+            GameManager.AddValue(VictimValue,GameManager.CurrentPrestigeBonus);
             Destroy(collision.gameObject);
         }
     }

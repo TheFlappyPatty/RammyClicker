@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static float BloodMoney;
     public int Prestige;
-    public float CurrentPrestigeBonus;
+    public static float CurrentPrestigeBonus;
     public int PrestigeBonusReward;
 
 
@@ -55,17 +55,24 @@ public class GameManager : MonoBehaviour
             StartCoroutine(SpawnVictum(VictumCount));
         }
         BloodmoneyText.text = "BloodMoney = " + BloodMoney;
-
+        PrestigeText.text = UpgradeCount + "/20";
     }
 
-
+    public int UpgradeCount;
+    public TextMeshProUGUI PrestigeText;
     public void PrestigeIsAGo()
     {
+        if(UpgradeCount >= 20)
+        {
         Prestige++;
         CurrentPrestigeBonus += 1 + PrestigeBonusReward;
+        ResetStats();
+        BusScript.ResetStats();
+        }
+
     }
 
-    public static void AddValue(int Add, int Multiplier)
+    public static void AddValue(float Add, float Multiplier)
     {
         BloodMoney += Add * (1 + (0.01f * Multiplier));
     }
@@ -73,18 +80,43 @@ public class GameManager : MonoBehaviour
     {
         BloodMoney -= Remove;
     }
+    public void ResetStats()
+    {
+        BloodMoney = 0;
+        VictumCount = 0;
+        SpawnWaittime = 10;
+        ActiveBuses = 1;
+        BusWaitTime = 5;
+        UpgradeCount = 0;
+
+        Busfrequency = 50;
+        BusFreqButton.text = "Bus Frequency\n Cost:" + Busfrequency;
+        Bussize = 2000;
+        BussizeButtom.text = "Bus Size\n Cost:" + Bussize;
+        BusAmount = 100;
+        BusAmountButton.text = "Bus Amount\n Cost:" + BusAmount;
+        busSpeed = 40;
+        Customerspawnfrequency = 150;
+        CustomerfreqButtom.text = "Victum Frequency\n Cost:" + Customerspawnfrequency;
+        CustomerspawnAmount = 100;
+        CustomerAmButton.text = "Victum Amount\n Cost:" + CustomerspawnAmount;
+        CustomerReward = 200;
+        CustReward.text = "Victum Value\n Cost:" + CustomerReward;
+        PrestigeReward = 50000;
+        PrestigeRewardButton.text = "Prestige Bonuse\n Cost:" + PrestigeReward;
+    }
 
 
 
 
     [Header("Upgrades")]
-    public int Busfrequency = 500;
+    public int Busfrequency = 50;
     public TextMeshProUGUI BusFreqButton;
     public int Bussize = 2000;
     public TextMeshProUGUI BussizeButtom;
-    public int BusAmount = 1;
+    public int BusAmount = 100;
     public TextMeshProUGUI BusAmountButton;
-    public int busSpeed = 100;
+    public int busSpeed = 40;
     public TextMeshProUGUI BusSpeedButton;
     public int Customerspawnfrequency = 150;
     public TextMeshProUGUI CustomerfreqButtom;
@@ -104,6 +136,7 @@ public class GameManager : MonoBehaviour
             var rounded = Busfrequency * 1.1f;
             Busfrequency = Mathf.RoundToInt(rounded);
             BusFreqButton.text = "Bus Frequency\n Cost:" + Busfrequency;
+            UpgradeCount++;
         }
     }
     public void Buslimit(int Bouns)
@@ -115,6 +148,7 @@ public class GameManager : MonoBehaviour
             var rounded = BusAmount * 1.2f;
             BusAmount = Mathf.RoundToInt(rounded);
             BusAmountButton.text = "Bus Amount\n Cost:" + BusAmount;
+            UpgradeCount++;
         }
     }
     public void CustomerAmount(int Bouns)
@@ -126,6 +160,7 @@ public class GameManager : MonoBehaviour
             var rounded = CustomerspawnAmount * 1.2f;
             CustomerspawnAmount = Mathf.RoundToInt(rounded);
             CustomerAmButton.text = "Victum Amount\n Cost:" + CustomerspawnAmount;
+            UpgradeCount++;
         }
     }
     public void VictumFrequency(float Bouns)
@@ -137,6 +172,7 @@ public class GameManager : MonoBehaviour
             var rounded = Customerspawnfrequency * 1.5f;
             Customerspawnfrequency = Mathf.RoundToInt(rounded);
             CustomerfreqButtom.text = "Victum Frequency\n Cost:" + Customerspawnfrequency;
+            UpgradeCount++;
         }
     }
     public void Victimvalues(int Bouns)
@@ -148,6 +184,7 @@ public class GameManager : MonoBehaviour
             var rounded = CustomerReward * 1.5f;
             CustomerReward = Mathf.RoundToInt(rounded);
             CustReward.text = "Victum Value\n Cost:" + CustomerReward;
+            UpgradeCount++;
         }
     }
     public void BusSize(float Bouns)
@@ -159,6 +196,7 @@ public class GameManager : MonoBehaviour
             var rounded = Bussize * 1.75f;
             Bussize = Mathf.RoundToInt(rounded);
             BussizeButtom.text = "Bus Size\n Cost:" + Bussize;
+            UpgradeCount++;
         }
     }
     public void PrestigeBonus(int Bouns)
@@ -169,7 +207,8 @@ public class GameManager : MonoBehaviour
             RemoveValue(PrestigeReward);
             var rounded = PrestigeReward * 1.5f;
             PrestigeReward = Mathf.RoundToInt(rounded);
-            PrestigeRewardButton.text = "Bus Size\n Cost:" + PrestigeReward;
+            PrestigeRewardButton.text = "Prestige Bonuse\n Cost:" + PrestigeReward;
+            UpgradeCount++;
         }
     }
 

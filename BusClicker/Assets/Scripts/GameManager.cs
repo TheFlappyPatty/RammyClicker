@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
 {
@@ -88,6 +89,7 @@ public class GameManager : MonoBehaviour
         ActiveBuses = 1;
         BusWaitTime = 5;
         UpgradeCount = 0;
+        SpawnPerClick = 0;
 
         Busfrequency = 50;
         BusFreqButton.text = "Bus Frequency\n Cost:" + Busfrequency;
@@ -110,6 +112,10 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Upgrades")]
+    public int VictimPerClick = 60;
+    public int SpawnPerClick = 0;
+    public Button ButtonVictimperclick;
+    public TextMeshProUGUI ButtonVictimperclicktext;
     public int Busfrequency = 50;
     public TextMeshProUGUI BusFreqButton;
     public int Bussize = 2000;
@@ -225,12 +231,29 @@ public class GameManager : MonoBehaviour
 
 
 
-
-
-
-    public  void SpawnVictim(int Amount)
+    public  void Spawncount(int Bouns)
     {
+
+        if (BloodMoney >= VictimPerClick)
+        {
+            SpawnPerClick += Bouns;
+            
+            RemoveValue(VictimPerClick);
+            var rounded = VictimPerClick * 2f;
+            VictimPerClick = Mathf.RoundToInt(rounded);
+            ButtonVictimperclicktext.text = "Victim per click\n Cost:" + VictimPerClick;
+            UpgradeCount++;
+        }
+    }
+
+   public void Spawn()
+    {
+        var Spawned = 0;
+        while(SpawnPerClick >= Spawned)
+        {
             Instantiate(Victim, SpawnLocation(level), Quaternion.identity, null);
+            Spawned++;
+        }
     }
 
 

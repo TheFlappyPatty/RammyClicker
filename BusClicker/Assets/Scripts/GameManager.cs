@@ -34,7 +34,9 @@ public class GameManager : MonoBehaviour
 
 
 
-
+    [Header("LootBoxUI")]
+    public TextMeshProUGUI LootBoxText;
+    public Image LootBoxImage;
 
 
 
@@ -58,6 +60,11 @@ public class GameManager : MonoBehaviour
         }
         BloodmoneyText.text = "BloodMoney = " + BloodMoney;
         PrestigeText.text = UpgradeCount + "/100";
+        if(BusWaitTime < 0.01)
+        {
+            BusWaitTime = 0.1f;
+        }
+        if (SpawnWaittime < 0.4)SpawnWaittime = 0.4f;
     }
 
 
@@ -86,12 +93,12 @@ public class GameManager : MonoBehaviour
     {
         BloodMoney = 0;
         VictumCount = 0;
-        SpawnWaittime = 10;
+        SpawnWaittime = 3;
         ActiveBuses = 1;
         BusWaitTime = 5;
         UpgradeCount = 0;
         SpawnPerClick = 0;
-
+        
 
 
 
@@ -113,16 +120,19 @@ public class GameManager : MonoBehaviour
         CustReward.text = "Victum Value\n Cost:" + CustomerReward;
         PrestigeReward = 20000;
         PrestigeRewardButton.text = "Prestige Bonuse\n Cost:" + PrestigeReward;
-
+        LootBox = 200;
+        LootBoxButton.text = "Loot Box\n Cost:" + LootBox;
 
         //UpgradeMultipliers
-         BusFreqMulti = 1;
-        BussizeMulti = 1;
+         BusFreqMulti = 0.1f;
+        BussizeMulti = 0.01f;
         BusAmtMulti = 1;
         CustSpawnFreqMulti = 1;
         CustspawnAmtmulti = 1;
         CustomerRewardMulti = 1;
         PrestigeRewardMulti = 1;
+        VictimPerClickMulti = 1;
+        
     }
 
 
@@ -130,6 +140,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Upgrades")]
     public int VictimPerClick = 60;
+    public int VictimPerClickMulti = 1;
     public int SpawnPerClick = 0;
     public Button ButtonVictimperclick;
     public TextMeshProUGUI ButtonVictimperclicktext;
@@ -154,6 +165,8 @@ public class GameManager : MonoBehaviour
     public int PrestigeReward = 20000;
     private int PrestigeRewardMulti = 1;
     public TextMeshProUGUI PrestigeRewardButton;
+    public int LootBox = 200;
+    public TextMeshProUGUI LootBoxButton;
 
     public void BusFrequency()
     {
@@ -161,7 +174,7 @@ public class GameManager : MonoBehaviour
         {
             BusWaitTime -= BusFreqMulti;
             RemoveValue(Busfreq);
-            var rounded = Busfreq * 1.1f;
+            var rounded = Busfreq * 1.25f;
             Busfreq = Mathf.RoundToInt(rounded);
             BusFreqButton.text = "Bus Frequency\n Cost:" + Busfreq;
             UpgradeCount++;
@@ -173,7 +186,7 @@ public class GameManager : MonoBehaviour
         {
                 ActiveBuses += BusAmtMulti;
                 RemoveValue(BusAmt);
-            var rounded = BusAmt * 1.2f;
+            var rounded = BusAmt * 1.4f;
             BusAmt = Mathf.RoundToInt(rounded);
             BusAmountButton.text = "Bus Amount\n Cost:" + BusAmt;
             UpgradeCount++;
@@ -181,7 +194,7 @@ public class GameManager : MonoBehaviour
     }
     public void CustomerAmount()
     {
-        if (VictumCount <= 100 && BloodMoney >= CustspawnAmt)
+        if (VictumCount <= 200 && BloodMoney >= CustspawnAmt)
         {
             VictumCount += CustspawnAmtmulti;
             RemoveValue(CustspawnAmt);
@@ -193,11 +206,11 @@ public class GameManager : MonoBehaviour
     }
     public void VictumFrequency()
     {
-        if (SpawnWaittime > 1 && BloodMoney >= Custspawnfreq)
+        if (SpawnWaittime > 0.4f && BloodMoney >= Custspawnfreq)
         {
             SpawnWaittime -= CustSpawnFreqMulti;
             RemoveValue(Custspawnfreq);
-            var rounded = Custspawnfreq * 1.5f;
+            var rounded = Custspawnfreq * 1.8f;
             Custspawnfreq = Mathf.RoundToInt(rounded);
             CustomerfreqButtom.text = "Victum Frequency\n Cost:" + Custspawnfreq;
             UpgradeCount++;
@@ -240,6 +253,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OpenLootBox()
+    {
+        if (BloodMoney >= LootBox)
+        {
+            StartCoroutine(LootBoxIsOpen());
+            RemoveValue(LootBox);
+            var rounded = LootBox * 4f;
+            LootBox = Mathf.RoundToInt(rounded);
+            LootBoxButton.text = "Loot Box\n Cost:" + LootBox;
+            UpgradeCount++;
+        }
+    }
 
 
 
@@ -253,12 +278,13 @@ public class GameManager : MonoBehaviour
 
 
 
-    public  void Spawncount(int Bouns)
+
+    public  void Spawncount()
     {
 
         if (BloodMoney >= VictimPerClick)
         {
-            SpawnPerClick += Bouns;
+            SpawnPerClick += VictimPerClickMulti;
             
             RemoveValue(VictimPerClick);
             var rounded = VictimPerClick * 2f;
@@ -278,7 +304,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    IEnumerator LootBoxIsOpen()
+    {
+        var Randompick = 0;
+        var Count = 7;
+        var Selected = 0;
+        var Boost = 0;
+        while(Randompick <= Count)
+        {
+            yield return new WaitForSeconds(0.2f);
+            Boost = Random.Range(0,7);
+            Randompick++;
+        }
+        if(Randompick >= Count)
+        {
+            Selected = Boost;
+        }
+        if (Selected == 0) { CustomerRewardMulti += 1; LootBoxText.text = "Victum Value\n" + "+" + 1; }
+        if (Selected == 1) { CustSpawnFreqMulti += 0.1f; LootBoxText.text = "Victum Frequency\n" + "+" + 0.1f; }
+        if (Selected == 2) { CustspawnAmtmulti += 1; LootBoxText.text = "Victum Spawn rate\n" + "+" + 1; }
+        if (Selected == 3) { BusFreqMulti += 1; LootBoxText.text = "Bus Frequency\n" + "+" + 1; }
+        if (Selected == 4) { BusAmtMulti += 1; LootBoxText.text = "Bus Amount\n" + "+" + 1; }
+        if (Selected == 5) { BussizeMulti += 0.1f; LootBoxText.text = "Bus Size\n" + "+" + 1; }
+        if (Selected == 6) { VictimPerClickMulti += 1; LootBoxText.text = "Victim Per Click\n" + "+" + 1; }
+        if (Selected == 7) { PrestigeRewardMulti += 1; LootBoxText.text = "Prestige Reward\n" + "+" + 1; }
+        yield return new WaitForSeconds(3);
+        LootBoxText.text = "";
+    }
     //Auto Spawning
     IEnumerator SpawnVictum(int Amount)
     {
@@ -329,7 +381,6 @@ public class GameManager : MonoBehaviour
     IEnumerator BusspawnCounter()
     {
         BusSpawning = false;
-        Debug.Log("Spawning");
         if (ActiveBuses == 0)
             {
 

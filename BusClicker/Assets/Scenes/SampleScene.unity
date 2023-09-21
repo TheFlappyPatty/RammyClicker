@@ -515,7 +515,7 @@ MonoBehaviour:
       - m_Target: {fileID: 622065430}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: Buslimit
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2162,33 +2162,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db421590344aee445935dd8fa3cb9fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prestige: 0
-  PrestigeBonusReward: 0
   BloodmoneyText: {fileID: 1798044173}
   BusScript: {fileID: 9090907921721655634, guid: a6af734ed74b3be49a0ff7f82ff00e9e, type: 3}
+  PrestigeText: {fileID: 352082114}
   level: {fileID: 705522791}
   SpawnWaittime: 10
   Victim: {fileID: 4179489642082729148, guid: 95059ac9eed9634459b1a8219772751e, type: 3}
+  PrestigeBonusReward: 0
+  UpgradeCount: 0
   VictumCount: 0
+  Prestige: 0
   Spawning: 0
   BusSpawning: 1
-  UpgradeCount: 0
-  PrestigeText: {fileID: 352082114}
   VictimPerClick: 60
   SpawnPerClick: 0
   ButtonVictimperclick: {fileID: 1096148754}
   ButtonVictimperclicktext: {fileID: 2105859709}
-  Busfrequency: 50
+  Busfreq: 50
   BusFreqButton: {fileID: 310166623}
   Bussize: 2000
   BussizeButtom: {fileID: 157860847}
-  BusAmount: 100
+  BusAmt: 100
   BusAmountButton: {fileID: 1683506337}
-  busSpeed: 40
-  BusSpeedButton: {fileID: 0}
-  Customerspawnfrequency: 150
+  Custspawnfreq: 150
   CustomerfreqButtom: {fileID: 1780517115}
-  CustomerspawnAmount: 100
+  CustspawnAmt: 100
   CustomerAmButton: {fileID: 849967641}
   CustomerReward: 200
   CustReward: {fileID: 1954887583}
@@ -2422,7 +2420,7 @@ MonoBehaviour:
       - m_Target: {fileID: 622065430}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: BusFrequency
-        m_Mode: 4
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2808,7 +2806,7 @@ MonoBehaviour:
       - m_Target: {fileID: 622065430}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: Victimvalues
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3946,7 +3944,7 @@ MonoBehaviour:
       - m_Target: {fileID: 622065430}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: CustomerAmount
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4164,7 +4162,7 @@ MonoBehaviour:
       - m_Target: {fileID: 622065430}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: PrestigeBonus
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4382,7 +4380,7 @@ MonoBehaviour:
       - m_Target: {fileID: 622065430}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: VictumFrequency
-        m_Mode: 4
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5952,7 +5950,7 @@ MonoBehaviour:
       - m_Target: {fileID: 622065430}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: BusSize
-        m_Mode: 4
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

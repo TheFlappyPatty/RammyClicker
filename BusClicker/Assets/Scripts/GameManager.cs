@@ -91,6 +91,13 @@ public class GameManager : MonoBehaviour
         UpgradeCount = 0;
         SpawnPerClick = 0;
 
+
+
+
+
+
+        VictimPerClick = 60;
+        ButtonVictimperclicktext.text = "Victim per click\n Cost:" + VictimPerClick;
         Busfrequency = 50;
         BusFreqButton.text = "Bus Frequency\n Cost:" + Busfrequency;
         Bussize = 2000;

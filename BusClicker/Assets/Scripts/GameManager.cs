@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         CurrentPrestigeBonus += 1 + PrestigeBonusReward;
         ResetStats();
         BusScript.ResetStats();
+            Debug.Log(CurrentPrestigeBonus);
         }
     }
 

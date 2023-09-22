@@ -65,9 +65,18 @@ public class GameManager : MonoBehaviour
             BusWaitTime = 0.1f;
         }
         if (SpawnWaittime < 0.4)SpawnWaittime = 0.4f;
+        
+        if (Input.GetKey(KeyCode.V) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.R)) cheats = true;
+        if(cheats == true && Input.GetKey(KeyCode.M))
+        {
+            if(cheatSpawn == false)
+            {
+                StartCoroutine(ConstantSpawn());
+            }
+        }
     }
 
-
+    public bool cheats;
 
     public void PrestigeIsAGo()
     {
@@ -78,7 +87,6 @@ public class GameManager : MonoBehaviour
         ResetStats();
         BusScript.ResetStats();
         }
-
     }
 
     public static void AddValue(float Add, float Multiplier)
@@ -124,10 +132,10 @@ public class GameManager : MonoBehaviour
         LootBoxButton.text = "Loot Box\n Cost:" + LootBox;
 
         //UpgradeMultipliers
-         BusFreqMulti = 0.1f;
+         BusFreqMulti = 0.08f;
         BussizeMulti = 0.01f;
         BusAmtMulti = 1;
-        CustSpawnFreqMulti = 1;
+        CustSpawnFreqMulti = 0.5F;
         CustspawnAmtmulti = 1;
         CustomerRewardMulti = 1;
         PrestigeRewardMulti = 1;
@@ -145,7 +153,7 @@ public class GameManager : MonoBehaviour
     public Button ButtonVictimperclick;
     public TextMeshProUGUI ButtonVictimperclicktext;
     public int Busfreq = 50;
-    private float BusFreqMulti = 0.1f;
+    private float BusFreqMulti = 0.08f;
     public TextMeshProUGUI BusFreqButton;
     public int Bussize = 2000;
     private float BussizeMulti = 0.01f;
@@ -154,7 +162,7 @@ public class GameManager : MonoBehaviour
     private int BusAmtMulti = 1;
     public TextMeshProUGUI BusAmountButton;
     public int Custspawnfreq = 150;
-    private float CustSpawnFreqMulti = 1;
+    private float CustSpawnFreqMulti = 0.5F;
     public TextMeshProUGUI CustomerfreqButtom;
     public int CustspawnAmt = 100;
     private int CustspawnAmtmulti = 1;
@@ -303,7 +311,22 @@ public class GameManager : MonoBehaviour
             Spawned++;
         }
     }
-
+    public IEnumerator ConstantSpawn()
+    {
+        if(cheatSpawn == false)
+        {
+            cheatSpawn = true;
+            var Spawned = 0;
+            while (SpawnPerClick >= Spawned)
+            {
+                Instantiate(Victim, SpawnLocation(level), Quaternion.identity, null);
+                Spawned++;
+            }
+            yield return new WaitForSeconds(0.1f);
+            cheatSpawn = false;
+        }
+    }
+    private bool cheatSpawn;
     IEnumerator LootBoxIsOpen()
     {
         var Randompick = 0;

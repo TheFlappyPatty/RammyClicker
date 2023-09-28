@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
 
 
 
-
+    //For push
     [Header("Upgrades")]
     public int VictimPerClick = 60;
     public int VictimPerClickMulti = 1;

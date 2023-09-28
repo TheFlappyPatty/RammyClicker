@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour
             BusAmountButton.text = "Bus Amount\n Cost:" + BusAmt;
             UpgradeCount++;
         }
-        if (ActiveBuses >=mmmm 12)
+        if (ActiveBuses >= 12)
         {
             BusAmountButton.gameObject.GetComponentInParent<Button>().interactable = false;
         }

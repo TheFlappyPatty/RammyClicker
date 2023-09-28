@@ -1,11 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
 {
@@ -58,7 +54,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(SpawnVictum(VictumCount));
         }
-        BloodmoneyText.text = "BloodMoney = " + BloodMoney;
+        BloodmoneyText.text = "BloodMoney = " + BloodMoney.ToString();
         PrestigeText.text = UpgradeCount + "/100";
         if(BusWaitTime < 0.01)
         {
@@ -165,6 +161,7 @@ public class GameManager : MonoBehaviour
     public int Custspawnfreq = 150;
     private float CustSpawnFreqMulti = 0.5F;
     public TextMeshProUGUI CustomerfreqButtom;
+    public Button CustfreqButton;
     public int CustspawnAmt = 100;
     private int CustspawnAmtmulti = 1;
     public TextMeshProUGUI CustomerAmButton;
@@ -205,9 +202,10 @@ public class GameManager : MonoBehaviour
     {
         if (VictumCount <= 200 && BloodMoney >= CustspawnAmt)
         {
+            CustfreqButton.interactable = true;
             VictumCount += CustspawnAmtmulti;
             RemoveValue(CustspawnAmt);
-            var rounded = CustspawnAmt * 1.2f;
+            var rounded = CustspawnAmt * 1.1f;
             CustspawnAmt = Mathf.RoundToInt(rounded);
             CustomerAmButton.text = "Victum Amount\n Cost:" + CustspawnAmt;
             UpgradeCount++;
@@ -227,7 +225,7 @@ public class GameManager : MonoBehaviour
     }
     public void Victimvalues()
     {
-        if (BusScript.VictimValue < 10 && BloodMoney >= CustomerReward)
+        if (BusScript.VictimValue < 10 * CustomerRewardMulti && BloodMoney >= CustomerReward)
         {
             BusScript.VictimValue += CustomerRewardMulti;
             RemoveValue(CustomerReward);

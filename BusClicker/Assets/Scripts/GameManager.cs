@@ -70,6 +70,10 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(ConstantSpawn());
             }
         }
+        if (BusScript.VictimValue > 10 * CustomerRewardMulti)
+        {
+            CustReward.gameObject.GetComponentInParent<Button>().interactable = true;
+        }
     }
 
     public bool cheats;
@@ -113,16 +117,22 @@ public class GameManager : MonoBehaviour
         ButtonVictimperclicktext.text = "Victim per click\n Cost:" + VictimPerClick;
         Busfreq = 50;
         BusFreqButton.text = "Bus Frequency\n Cost:" + Busfreq;
+        BusFreqButton.gameObject.GetComponentInParent<Button>().interactable = true;
         Bussize = 2000;
         BussizeButtom.text = "Bus Size\n Cost:" + Bussize;
+        BussizeButtom.gameObject.GetComponentInParent<Button>().interactable = true;
         BusAmt = 100;
         BusAmountButton.text = "Bus Amount\n Cost:" + BusAmt;
+        BusAmountButton.gameObject.GetComponentInParent<Button>().interactable = true;
         Custspawnfreq = 150;
-        CustomerfreqButtom.text = "Victum Frequency\n Cost:" + Custspawnfreq;
+        CustomerfreqButtom.text = "Victim Frequency\n Cost:" + Custspawnfreq;
+        CustomerfreqButtom.gameObject.GetComponentInParent<Button>().interactable = false;
         CustspawnAmt = 100;
-        CustomerAmButton.text = "Victum Amount\n Cost:" + CustspawnAmt;
+        CustomerAmButton.text = "Victim Amount\n Cost:" + CustspawnAmt;
+        CustomerAmButton.gameObject.GetComponentInParent<Button>().interactable = true;
         CustomerReward = 200;
-        CustReward.text = "Victum Value\n Cost:" + CustomerReward;
+        CustReward.text = "Victim Value\n Cost:" + CustomerReward;
+        CustReward.gameObject.GetComponentInParent<Button>().interactable = true;
         PrestigeReward = 20000;
         PrestigeRewardButton.text = "Prestige Bonuse\n Cost:" + PrestigeReward;
         LootBox = 200;
@@ -185,6 +195,10 @@ public class GameManager : MonoBehaviour
             BusFreqButton.text = "Bus Frequency\n Cost:" + Busfreq;
             UpgradeCount++;
         }
+         if(BusWaitTime <= 0.5f)
+        {
+            BusFreqButton.gameObject.GetComponentInParent<Button>().interactable = false;
+        }
     }
     public void Buslimit()
     {
@@ -197,18 +211,29 @@ public class GameManager : MonoBehaviour
             BusAmountButton.text = "Bus Amount\n Cost:" + BusAmt;
             UpgradeCount++;
         }
+        if (ActiveBuses >=mmmm 12)
+        {
+            BusAmountButton.gameObject.GetComponentInParent<Button>().interactable = false;
+        }
     }
     public void CustomerAmount()
     {
         if (VictumCount <= 200 && BloodMoney >= CustspawnAmt)
         {
-            CustfreqButton.interactable = true;
+            if (SpawnWaittime > 0.4f)
+            {
+                CustfreqButton.interactable = true;
+            }
             VictumCount += CustspawnAmtmulti;
             RemoveValue(CustspawnAmt);
             var rounded = CustspawnAmt * 1.1f;
             CustspawnAmt = Mathf.RoundToInt(rounded);
             CustomerAmButton.text = "Victum Amount\n Cost:" + CustspawnAmt;
             UpgradeCount++;
+        }
+        if (VictumCount >= 200)
+        {
+            CustomerAmButton.gameObject.GetComponentInParent<Button>().interactable = false;
         }
     }
     public void VictumFrequency()
@@ -222,6 +247,10 @@ public class GameManager : MonoBehaviour
             CustomerfreqButtom.text = "Victum Frequency\n Cost:" + Custspawnfreq;
             UpgradeCount++;
         }
+        if (SpawnWaittime <= 0.4f)
+        {
+            CustomerfreqButtom.gameObject.GetComponentInParent<Button>().interactable = false;
+        }
     }
     public void Victimvalues()
     {
@@ -234,6 +263,10 @@ public class GameManager : MonoBehaviour
             CustReward.text = "Victum Value\n Cost:" + CustomerReward;
             UpgradeCount++;
         }
+        if (BusScript.VictimValue > 10 * CustomerRewardMulti)
+        {
+            CustReward.gameObject.GetComponentInParent<Button>().interactable = false;
+        }
     }
     public void BusSize()
     {
@@ -245,6 +278,10 @@ public class GameManager : MonoBehaviour
             Bussize = Mathf.RoundToInt(rounded);
             BussizeButtom.text = "Bus Size\n Cost:" + Bussize;
             UpgradeCount++;
+        }
+         if (BusScript.transform.localScale.z < 1)
+        {
+            CustomerAmButton.gameObject.GetComponentInParent<Button>().interactable = false;
         }
     }
     public void PrestigeBonus()

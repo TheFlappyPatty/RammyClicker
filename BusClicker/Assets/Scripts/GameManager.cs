@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour
     [Header("LootBoxUI")]
     public TextMeshProUGUI LootBoxText;
     public Image LootBoxImage;
-
+    public GameObject PlayerButtons;
+    public GameObject Info;
 
 
 
@@ -228,7 +229,7 @@ public class GameManager : MonoBehaviour
             RemoveValue(CustspawnAmt);
             var rounded = CustspawnAmt * 1.1f;
             CustspawnAmt = Mathf.RoundToInt(rounded);
-            CustomerAmButton.text = "Victum Amount\n Cost:" + CustspawnAmt;
+            CustomerAmButton.text = "Victim Amount\n Cost:" + CustspawnAmt;
             UpgradeCount++;
         }
         if (VictumCount >= 200)
@@ -244,7 +245,7 @@ public class GameManager : MonoBehaviour
             RemoveValue(Custspawnfreq);
             var rounded = Custspawnfreq * 1.8f;
             Custspawnfreq = Mathf.RoundToInt(rounded);
-            CustomerfreqButtom.text = "Victum Frequency\n Cost:" + Custspawnfreq;
+            CustomerfreqButtom.text = "Victim Frequency\n Cost:" + Custspawnfreq;
             UpgradeCount++;
         }
         if (SpawnWaittime <= 0.4f)
@@ -260,7 +261,7 @@ public class GameManager : MonoBehaviour
             RemoveValue(CustomerReward);
             var rounded = CustomerReward * 1.5f;
             CustomerReward = Mathf.RoundToInt(rounded);
-            CustReward.text = "Victum Value\n Cost:" + CustomerReward;
+            CustReward.text = "Victim Value\n Cost:" + CustomerReward;
             UpgradeCount++;
         }
         if (BusScript.VictimValue > 10 * CustomerRewardMulti)
@@ -388,9 +389,9 @@ public class GameManager : MonoBehaviour
         {
             Selected = Boost;
         }
-        if (Selected == 0) { CustomerRewardMulti += 1; LootBoxText.text = "Victum Value\n" + "+" + 1; }
-        if (Selected == 1) { CustSpawnFreqMulti += 0.1f; LootBoxText.text = "Victum Frequency\n" + "+" + 0.1f; }
-        if (Selected == 2) { CustspawnAmtmulti += 1; LootBoxText.text = "Victum Spawn rate\n" + "+" + 1; }
+        if (Selected == 0) { CustomerRewardMulti += 1; LootBoxText.text = "Victim Value\n" + "+" + 1; }
+        if (Selected == 1) { CustSpawnFreqMulti += 0.1f; LootBoxText.text = "Victim Frequency\n" + "+" + 0.1f; }
+        if (Selected == 2) { CustspawnAmtmulti += 1; LootBoxText.text = "Victim Spawn rate\n" + "+" + 1; }
         if (Selected == 3) { BusFreqMulti += 1; LootBoxText.text = "Bus Frequency\n" + "+" + 1; }
         if (Selected == 4) { BusAmtMulti += 1; LootBoxText.text = "Bus Amount\n" + "+" + 1; }
         if (Selected == 5) { BussizeMulti += 0.1f; LootBoxText.text = "Bus Size\n" + "+" + 1; }

@@ -2310,6 +2310,8 @@ MonoBehaviour:
   BusSpawning: 1
   LootBoxText: {fileID: 1584377651}
   LootBoxImage: {fileID: 642827872}
+  PlayerButtons: {fileID: 0}
+  Info: {fileID: 0}
   cheats: 0
   VictimPerClick: 60
   VictimPerClickMulti: 1
@@ -7121,7 +7123,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Victum per click
+  m_text: 'Victim per click
 
     Cost:60'
   m_isRightToLeft: 0

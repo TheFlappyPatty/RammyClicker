@@ -271,7 +271,7 @@ public class GameManager : MonoBehaviour
     }
     public void BusSize()
     {
-        if (BusScript.transform.localScale.z < 1 && BloodMoney >= Bussize)
+        if (BusScript.transform.localScale.x < 1 && BloodMoney >= Bussize)
         {
             BusScript.transform.localScale += new Vector3(BussizeMulti,BussizeMulti,0);
             RemoveValue(Bussize);
@@ -280,7 +280,7 @@ public class GameManager : MonoBehaviour
             BussizeButtom.text = "Bus Size\n Cost:" + Bussize;
             UpgradeCount++;
         }
-         if (BusScript.transform.localScale.z < 1)
+         if (BusScript.transform.localScale.x > 1)
         {
             BussizeButtom.gameObject.GetComponentInParent<Button>().interactable = false;
         }

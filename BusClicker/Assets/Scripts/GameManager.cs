@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -74,6 +75,19 @@ public class GameManager : MonoBehaviour
         {
             CustReward.gameObject.GetComponentInParent<Button>().interactable = true;
         }
+        if(ButtonVictimperclick.transition == Selectable.Transition.ColorTint)
+        {
+            Debug.Log("working");
+        }
+
+
+
+
+
+
+
+
+
     }
 
     public bool cheats;
@@ -365,6 +379,7 @@ public class GameManager : MonoBehaviour
     private bool cheatSpawn;
     IEnumerator LootBoxIsOpen()
     {
+        LootBoxImage.gameObject.SetActive(true);
         var Randompick = 0;
         var Count = 7;
         var Selected = 0;
@@ -373,6 +388,14 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(0.2f);
             Boost = Random.Range(0,7);
+            if (Boost == 0) { LootBoxText.text = "Victum Value"; }
+            if (Boost == 1) { LootBoxText.text = "Victum Frequency"; }
+            if (Boost == 2) { LootBoxText.text = "Victum Spawn rate"; }
+            if (Boost == 3) { LootBoxText.text = "Bus Frequency"; }
+            if (Boost == 4) { LootBoxText.text = "Bus Amount"; }
+            if (Boost == 5) { LootBoxText.text = "Bus Size"; }
+            if (Boost == 6) { LootBoxText.text = "Victim Per Click"; }
+            if (Boost == 7) { LootBoxText.text = "Prestige Reward"; }
             Randompick++;
         }
         if(Randompick >= Count)
@@ -389,6 +412,7 @@ public class GameManager : MonoBehaviour
         if (Selected == 7) { PrestigeRewardMulti += 1; LootBoxText.text = "Prestige Reward\n" + "+" + 1; }
         yield return new WaitForSeconds(3);
         LootBoxText.text = "";
+        LootBoxImage.gameObject.SetActive(false);
     }
     //Auto Spawning
     IEnumerator SpawnVictum(int Amount)

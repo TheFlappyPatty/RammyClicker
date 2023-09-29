@@ -312,9 +312,22 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public bool InfoOpen;
 
+    public void OpenInfo()
+    {
+        if(InfoOpen == false)
+        {
+        PlayerButtons.SetActive(false);
+            Info.SetActive(true);
+        }
+        if(InfoOpen == true)
+        {
+            PlayerButtons.SetActive(true);
+            Info.SetActive(false);
+        }
 
-
+    }
 
 
 

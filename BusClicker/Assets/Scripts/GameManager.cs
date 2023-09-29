@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(SpawnVictum(VictumCount));
         }
-        BloodmoneyText.text = "BloodMoney = " + BloodMoney.ToString();
+        BloodmoneyText.text = "BloodMoney = " + BloodMoney.ToString("###,###,###.##");
         PrestigeText.text = UpgradeCount + "/100";
         if(BusWaitTime < 0.01)
         {

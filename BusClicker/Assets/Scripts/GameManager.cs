@@ -71,25 +71,11 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(ConstantSpawn());
             }
         }
-        if (BusScript.VictimValue > 10 * CustomerRewardMulti)
+        if (BusScript.VictimValue < 10 * CustomerRewardMulti)
         {
             CustReward.gameObject.GetComponentInParent<Button>().interactable = true;
         }
-        if(ButtonVictimperclick.transition == Selectable.Transition.ColorTint)
-        {
-            Debug.Log("working");
-        }
-
-
-
-
-
-
-
-
-
     }
-
     public bool cheats;
 
     public void PrestigeIsAGo()
@@ -295,7 +281,7 @@ public class GameManager : MonoBehaviour
         }
          if (BusScript.transform.localScale.z < 1)
         {
-            CustomerAmButton.gameObject.GetComponentInParent<Button>().interactable = false;
+            BussizeButtom.gameObject.GetComponentInParent<Button>().interactable = false;
         }
     }
     public void PrestigeBonus()

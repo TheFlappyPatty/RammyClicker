@@ -366,6 +366,7 @@ public class GameManager : MonoBehaviour
     private bool cheatSpawn;
     IEnumerator LootBoxIsOpen()
     {
+        LootBoxButton.GetComponentInParent<Button>().interactable = false;
         LootBoxImage.gameObject.SetActive(true);
         var Randompick = 0;
         var Count = 7;
@@ -400,6 +401,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         LootBoxText.text = "";
         LootBoxImage.gameObject.SetActive(false);
+        LootBoxButton.GetComponentInParent<Button>().interactable = true;
     }
     //Auto Spawning
     IEnumerator SpawnVictum(int Amount)
